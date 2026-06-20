@@ -1,0 +1,359 @@
+{
+  "item": [
+    {
+      "id": "a1f0c2d4-1111-4a11-9c01-000000000001",
+      "name": "Inference",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c2d4-1111-4a11-9c01-000000000010",
+          "name": "Invoke a deployed function",
+          "request": {
+            "name": "Invoke a deployed function",
+            "description": {
+              "content": "Calls a deployed Cortex function. The JSON body maps to the function parameters. Returns run_id, run_time_ms, and result.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v4/{{projectId}}/{{appName}}/{{functionName}}",
+              "path": [
+                "v4",
+                "{{projectId}}",
+                "{{appName}}",
+                "{{functionName}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0c2d4-1111-4a11-9c01-000000000011",
+          "name": "Invoke run function",
+          "request": {
+            "name": "Invoke run function",
+            "description": {
+              "content": "Calls the run function on a deployed app.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v4/{{projectId}}/{{appName}}/run",
+              "path": [
+                "v4",
+                "{{projectId}}",
+                "{{appName}}",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c2d4-1111-4a11-9c01-000000000002",
+      "name": "Streaming",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c2d4-1111-4a11-9c01-000000000020",
+          "name": "Stream function output (SSE)",
+          "request": {
+            "name": "Stream function output (SSE)",
+            "description": {
+              "content": "Streams live model output over a Server-Sent Events (text/event-stream) response from a generator function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v4/{{projectId}}/{{appName}}/run",
+              "path": [
+                "v4",
+                "{{projectId}}",
+                "{{appName}}",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"upper_range\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c2d4-1111-4a11-9c01-000000000003",
+      "name": "Async",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c2d4-1111-4a11-9c01-000000000030",
+          "name": "Submit async run",
+          "request": {
+            "name": "Submit async run",
+            "description": {
+              "content": "Submits the function for asynchronous execution. Returns 202 Accepted with a run_id; results are forwarded to a configured webhookEndpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v4/{{projectId}}/{{appName}}/run?async=true",
+              "path": [
+                "v4",
+                "{{projectId}}",
+                "{{appName}}",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "async",
+                  "value": "true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c2d4-1111-4a11-9c01-000000000004",
+      "name": "OpenAI Compatible",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c2d4-1111-4a11-9c01-000000000040",
+          "name": "Chat completions",
+          "request": {
+            "name": "Chat completions",
+            "description": {
+              "content": "OpenAI-compatible chat completions served by a deployed function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v4/{{projectId}}/{{appName}}/{{functionName}}/chat/completions",
+              "path": [
+                "v4",
+                "{{projectId}}",
+                "{{appName}}",
+                "{{functionName}}",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0c2d4-1111-4a11-9c01-000000000041",
+          "name": "Embeddings",
+          "request": {
+            "name": "Embeddings",
+            "description": {
+              "content": "OpenAI-compatible embeddings served by a deployed function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v4/{{projectId}}/{{appName}}/{{functionName}}/embedding",
+              "path": [
+                "v4",
+                "{{projectId}}",
+                "{{appName}}",
+                "{{functionName}}",
+                "embedding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.aws.us-east-1.cerebrium.ai",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "p-xxxxxxxx",
+      "key": "projectId"
+    },
+    {
+      "type": "string",
+      "value": "my-app",
+      "key": "appName"
+    },
+    {
+      "type": "string",
+      "value": "run",
+      "key": "functionName"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5351e0d3-d283-4104-bd01-cerebrium0001",
+    "name": "Cerebrium Cortex Inference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Cerebrium serverless GPU inference surface. Each deployed Cortex function is an authenticated POST endpoint at /v4/{project}/{app}/{function}.\n\nContact Support:\n Name: Cerebrium Support\n Email: support@cerebrium.ai",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+aid: cerebrium
+name: Cerebrium
+review:
+  question: Does Cerebrium expose a documented public WebSocket API?
+  answer: true
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Cerebrium documents both Server-Sent Events (SSE) streaming and WebSocket
+    endpoints. However, neither is a fixed, provider-defined message schema:
+    both transports carry whatever data the customer's deployed Cortex function
+    yields or sends over the per-app /v4/{project}/{app}/{function} endpoint.
+    Because there is no provider-owned channel/message contract to model (the
+    payloads are user-defined per deployment), no AsyncAPI document was authored
+    for this catalog entry. The SSE and WebSocket surfaces are documented here
+    in transports and findings instead.
+findings:
+  summary: |
+    Cerebrium exposes deployed functions over multiple invocation transports on
+    a single per-app endpoint pattern,
+    https://api.aws.{region}.cerebrium.ai/v4/{project}/{app}/{function} (the
+    api.cortex.cerebrium.ai host is also documented). Authentication is a JWT
+    bearer token from the dashboard API Keys section. The same /run endpoint
+    serves: synchronous JSON (returning run_id, run_time_ms, result); SSE
+    streaming when the function yields data and the caller sends
+    Accept: text/event-stream; asynchronous submission via the async=true query
+    parameter (202 Accepted with run_id, results forwarded to a configured
+    webhookEndpoint rather than polled); WebSocket connections; and
+    OpenAI-compatible chat/completions and embedding calls using the standard
+    OpenAI client. Unlike a classic fixed-schema API, the request/response shape
+    of each endpoint is defined by the customer's deployed function signature.
+    App deployment, scaling, logs, and status are managed through the Cerebrium
+    CLI (init, login, run, deploy, apps, logs, status) and dashboard; there is
+    no separately documented public management REST API surface.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
+      documented: true
+    - protocol: SSE
+      scheme: https
+      note: Server-Sent Events delivered over the same /run endpoint when the function yields and Accept is text/event-stream. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: true
+      note: Cerebrium documents WebSocket endpoints for deployed functions; the message payloads are defined by the customer's function rather than a fixed provider schema.
+  endpointsConfirmedRest:
+    - POST https://api.aws.{region}.cerebrium.ai/v4/{project}/{app}/{function}
+    - POST https://api.aws.{region}.cerebrium.ai/v4/{project}/{app}/{function}/run
+    - POST https://api.aws.{region}.cerebrium.ai/v4/{project}/{app}/{function}?async=true
+    - POST https://api.aws.{region}.cerebrium.ai/v4/{project}/{app}/{function}/chat/completions
+    - POST https://api.aws.{region}.cerebrium.ai/v4/{project}/{app}/{function}/embedding
+    - POST https://api.cortex.cerebrium.ai/v4/{project}/{app}/{function}/run
+sources:
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/inference-api
+    type: Documentation
+    note: REST API reference; JWT bearer auth; regional /v4/{project}/{app}/{function} pattern; references streaming, websocket, async, and OpenAI-compatible endpoints.
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/streaming
+    type: Documentation
+    note: Streaming sends live output over a Server-Sent Events (text/event-stream) stream from a Python generator that yields data.
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/async
+    type: Documentation
+    note: Async via async=true query parameter returns 202 with run_id; results forwarded to a webhookEndpoint; up to 12-hour execution window.
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/openai-compatible-endpoints
+    type: Documentation
+    note: OpenAI-compatible chat/completions and embedding endpoints invoked with the standard OpenAI client using the function base URL and Cerebrium JWT.
+  - url: https://www.cerebrium.ai/docs/getting-started/introduction
+    type: Documentation
+    note: Platform overview; CLI (init, login, run, deploy); per-second billing; multi-region; REST, streaming, WebSocket, and ASGI app support.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    SSE and WebSocket transports are documented, but the payloads are
+    user-defined per deployed function rather than a provider-owned channel
+    schema, so no AsyncAPI document was authored. The REST/SSE/async/WebSocket/
+    OpenAI-compatible surfaces are captured in openapi/cerebrium-openapi.yml and
+    in this review's transports and findings.

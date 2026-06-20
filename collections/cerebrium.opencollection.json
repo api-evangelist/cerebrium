@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cerebrium Cortex Inference API",
+    "version": "v4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke a deployed function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/{projectId}/{appName}/{functionName}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calls a deployed Cortex function. The JSON body maps to the function parameters. Returns run_id, run_time_ms, and result."
+        },
+        {
+          "info": {
+            "name": "Invoke run function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/{projectId}/{appName}/run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calls the run function on a deployed app."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stream function output (SSE)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/{projectId}/{appName}/run",
+            "headers": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Streams live model output over a Server-Sent Events (text/event-stream) response from a generator function."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Async",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit async run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/{projectId}/{appName}/run?async=true",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits the function for asynchronous execution. Returns 202 Accepted with a run_id; results are forwarded to a configured webhookEndpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OpenAI Compatible",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Chat completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/{projectId}/{appName}/{functionName}/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "OpenAI-compatible chat completions served by a deployed function."
+        },
+        {
+          "info": {
+            "name": "Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/{projectId}/{appName}/{functionName}/embedding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "OpenAI-compatible embeddings served by a deployed function."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

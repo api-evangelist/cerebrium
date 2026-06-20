@@ -1,0 +1,237 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Cerebrium
+providerId: cerebrium
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- GPU
+- Serverless
+- Inference
+- ML Infrastructure
+- Plans
+description: >-
+  Cerebrium combines flat monthly plan tiers (Hobby, Standard, Enterprise) with
+  usage-based, per-second compute billing. You pay for GPU, CPU, and memory only
+  while a function is running, plus persistent storage per GB-month. GPU rates
+  are charged per second by accelerator type. The Hobby plan is free plus
+  compute; the Standard plan adds a $100/month platform fee plus compute with
+  unlimited apps and seats; Enterprise is custom with volume discounts and
+  unlimited GPU concurrency.
+notes: >-
+  Per-second GPU, CPU, memory, and storage rates as published on the Cerebrium
+  pricing page; verify current rates and the full GPU catalog on the pricing
+  page during reconciliation.
+sources:
+- https://www.cerebrium.ai/pricing
+- https://www.cerebrium.ai/docs
+plans:
+- id: cerebrium-hobby
+  name: Hobby
+  type: free
+  description: >-
+    Free platform plan with basic features and community support; compute is
+    billed separately per second.
+  entries:
+  - label: Platform Fee
+    name: hobby_platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (compute billed separately)
+    userMultiplied: false
+  elements:
+  - name: Serverless GPU/CPU Deployments
+  - name: Community Support
+- id: cerebrium-standard
+  name: Standard
+  type: paid
+  description: >-
+    Paid platform plan with unlimited apps and seats; compute is billed
+    separately per second on top of the monthly platform fee.
+  entries:
+  - label: Platform Fee
+    name: standard_platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $100/month + compute
+    userMultiplied: false
+  elements:
+  - name: Unlimited Apps
+  - name: Unlimited Seats
+- id: cerebrium-compute
+  name: Per-Second Compute
+  type: usage
+  description: >-
+    Usage-based compute billed by the second for the duration each function
+    runs. GPU rates are per accelerator type; CPU and memory are billed per
+    vCPU-second and GB-second.
+  entries:
+  - label: B200 GPU
+    name: gpu_b200
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.00167 per second
+    userMultiplied: false
+  - label: H200 GPU
+    name: gpu_h200
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.001166 per second
+    userMultiplied: false
+  - label: H100 GPU
+    name: gpu_h100
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000944 per second
+    userMultiplied: false
+  - label: RTX PRO 6000 GPU
+    name: gpu_rtx_pro_6000
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000694 per second
+    userMultiplied: false
+  - label: A100 80GB GPU
+    name: gpu_a100_80gb
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000583 per second
+    userMultiplied: false
+  - label: A100 40GB GPU
+    name: gpu_a100_40gb
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000555 per second
+    userMultiplied: false
+  - label: L40s GPU
+    name: gpu_l40s
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000542 per second
+    userMultiplied: false
+  - label: A10 GPU
+    name: gpu_a10
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000306 per second
+    userMultiplied: false
+  - label: L4 GPU
+    name: gpu_l4
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000222 per second
+    userMultiplied: false
+  - label: T4 GPU
+    name: gpu_t4
+    type: usage
+    metric: gpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.000164 per second
+    userMultiplied: false
+  - label: CPU
+    name: cpu
+    type: usage
+    metric: vcpu_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.00000655 per vCPU per second
+    userMultiplied: false
+  - label: Memory
+    name: memory
+    type: usage
+    metric: gb_seconds
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.00000222 per GB per second
+    userMultiplied: false
+  - label: Persistent Storage
+    name: storage
+    type: usage
+    metric: gb_month
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.05 per GB/month (first 100GB free)
+    userMultiplied: false
+  elements:
+  - name: GPU Inference
+  - name: CPU Inference
+  - name: Persistent Volumes
+- id: cerebrium-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom enterprise plan with volume discounts, unlimited GPU concurrency, and
+    dedicated support. Contact Cerebrium sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Volume Discounts
+  - name: Unlimited GPU Concurrency
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

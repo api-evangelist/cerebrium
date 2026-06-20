@@ -1,0 +1,67 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Cerebrium
+providerId: cerebrium
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- GPU
+- Serverless
+- Inference
+- ML Infrastructure
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Cerebrium does not throttle deployed function endpoints with classic
+  per-minute request quotas; instead, throughput is governed by autoscaling
+  GPU/CPU concurrency limits per app and per account plan tier. The number of
+  concurrent replicas an app can scale to is configured per deployment
+  (min/max instances) and capped by the plan tier, with Enterprise offering
+  unlimited GPU concurrency. Async runs are bounded by a maximum execution
+  window (up to 12 hours) and a configurable response grace period. Specific
+  per-account concurrency caps are not reconciled in this artifact.
+notes: >-
+  Verify per-app min/max replica settings, plan-tier concurrency caps, and async
+  execution limits in the Cerebrium dashboard and docs on reconciliation;
+  values change as accounts move between Hobby, Standard, and Enterprise tiers.
+sources:
+- https://www.cerebrium.ai/docs
+- https://www.cerebrium.ai/docs/cerebrium/endpoints/async
+- https://www.cerebrium.ai/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Concurrent Replicas (per app)
+  scope: app
+  metric: instances
+  limit: see provider documentation
+  notes: Configured via min/max instances in cerebrium.toml; capped by plan tier.
+- name: GPU Concurrency (per account)
+  scope: account
+  metric: gpu_instances
+  limit: see provider documentation
+  notes: Bounded by plan tier; Enterprise offers unlimited GPU concurrency.
+- name: Async Execution Window
+  scope: request
+  metric: seconds
+  limit: up to 12 hours
+  notes: Async runs are bounded by response_grace_period (default 15 minutes, up to 12 hours).
+- name: Cold Start / Scale-to-Zero
+  scope: app
+  metric: instances
+  limit: scales to zero when idle
+  notes: Apps scale down to zero idle instances; cold-start latency applies on first request after idle.
+policies:
+- name: Tiered Concurrency
+  description: Concurrency caps raise as accounts move from Hobby to Standard to Enterprise (unlimited GPU concurrency).
+- name: Autoscaling
+  description: Apps autoscale replicas between configured min and max based on incoming traffic.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any throttling responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

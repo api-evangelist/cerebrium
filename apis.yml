@@ -1,0 +1,133 @@
+aid: cerebrium
+url: https://raw.githubusercontent.com/api-evangelist/cerebrium/refs/heads/main/apis.yml
+name: Cerebrium
+kind: company
+description: Cerebrium is a serverless GPU infrastructure platform for real-time AI
+  and ML workloads. Developers package code with the Cortex framework and Cerebrium
+  CLI, then deploy each function as an authenticated REST endpoint on autoscaling
+  GPU/CPU compute billed per second, with streaming, WebSocket, async, and
+  OpenAI-compatible invocation patterns.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- GPU
+- Serverless
+- Inference
+- ML Infrastructure
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: cerebrium:cerebrium-inference-run-api
+  name: Cerebrium Inference / Run Endpoints API
+  tags:
+  - Inference
+  - Run
+  - GPU
+  - Streaming
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.cerebrium.ai/docs/cerebrium/endpoints/inference-api
+  baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
+  properties:
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/inference-api
+    type: Documentation
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/inference-api
+    type: APIReference
+  - url: openapi/cerebrium-openapi.yml
+    type: OpenAPI
+  - url: collections/cerebrium.postman_collection.json
+    type: PostmanCollection
+  description: Calls each deployed function as an authenticated POST endpoint at
+    /v4/{project}/{app}/{function}, billed per second of GPU/CPU compute. Supports
+    synchronous JSON, Server-Sent Events streaming, async submission via
+    async=true, and OpenAI-compatible chat/embedding requests using the standard
+    OpenAI client with a Cerebrium JWT.
+- aid: cerebrium:cerebrium-streaming-api
+  name: Cerebrium Streaming Endpoints API
+  tags:
+  - Streaming
+  - SSE
+  - Inference
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.cerebrium.ai/docs/cerebrium/endpoints/streaming
+  baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
+  properties:
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/streaming
+    type: Documentation
+  - url: openapi/cerebrium-openapi.yml
+    type: OpenAPI
+  - url: collections/cerebrium.postman_collection.json
+    type: PostmanCollection
+  description: Streams live model output over a Server-Sent Events (text/event-stream)
+    response from a Python generator that yields data, invoked on the same
+    /run endpoint with an Accept of text/event-stream.
+- aid: cerebrium:cerebrium-async-api
+  name: Cerebrium Async Requests API
+  tags:
+  - Async
+  - Jobs
+  - Webhooks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.cerebrium.ai/docs/cerebrium/endpoints/async
+  baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
+  properties:
+  - url: https://www.cerebrium.ai/docs/cerebrium/endpoints/async
+    type: Documentation
+  - url: openapi/cerebrium-openapi.yml
+    type: OpenAPI
+  description: Submits long-running inference asynchronously with the async=true
+    query parameter, returning 202 Accepted with a run_id; results are forwarded
+    to a configured webhookEndpoint rather than polled.
+- aid: cerebrium:cerebrium-app-deployment-management-api
+  name: Cerebrium App Deployment / Management API
+  tags:
+  - Deployment
+  - Management
+  - Apps
+  - CLI
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.cerebrium.ai/docs/cerebrium/getting-started/introduction
+  baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
+  properties:
+  - url: https://www.cerebrium.ai/docs/cerebrium/getting-started/introduction
+    type: Documentation
+  - url: openapi/cerebrium-openapi.yml
+    type: OpenAPI
+  description: Packages a Cortex project and deploys each function as a persistent
+    REST endpoint via the Cerebrium CLI (init, login, run, deploy), with apps,
+    deployments, scaling, and configuration managed through the CLI and dashboard.
+- aid: cerebrium:cerebrium-logs-status-api
+  name: Cerebrium Logs / Status API
+  tags:
+  - Logs
+  - Status
+  - Observability
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://status.cerebrium.ai/
+  baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
+  properties:
+  - url: https://www.cerebrium.ai/docs/cerebrium/getting-started/introduction
+    type: Documentation
+  - url: https://status.cerebrium.ai/
+    type: StatusPage
+  description: Surfaces app logs, metrics, and platform status through the CLI
+    (cerebrium logs, cerebrium status), the app dashboard, and the public
+    status page.
+common:
+- type: GitHubOrganization
+  url: https://github.com/CerebriumAI
+- type: LinkedIn
+  url: https://www.linkedin.com/company/cerebrium
+- type: Website
+  url: https://www.cerebrium.ai
+- type: Documentation
+  url: https://www.cerebrium.ai/docs
+- type: Plans
+  url: plans/cerebrium-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/cerebrium-rate-limits.yml
+- type: FinOps
+  url: finops/cerebrium-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
