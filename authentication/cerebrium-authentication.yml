@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/cerebrium-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: 'JWT token from the dashboard API Keys section, sent as Authorization: Bearer
+    <JWT_TOKEN>.'
+  sources:
+  - openapi/cerebrium-openapi.yml

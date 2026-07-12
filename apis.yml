@@ -114,6 +114,10 @@ apis:
     (cerebrium logs, cerebrium status), the app dashboard, and the public
     status page.
 common:
+- type: DomainSecurity
+  url: security/cerebrium-domain-security.yml
+- type: Authentication
+  url: authentication/cerebrium-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/CerebriumAI
 - type: LinkedIn
