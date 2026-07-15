@@ -114,6 +114,8 @@ apis:
     (cerebrium logs, cerebrium status), the app dashboard, and the public
     status page.
 common:
+- type: AgenticAccess
+  url: agentic-access/cerebrium-agentic-access.yml
 - type: DomainSecurity
   url: security/cerebrium-domain-security.yml
 - type: Authentication
