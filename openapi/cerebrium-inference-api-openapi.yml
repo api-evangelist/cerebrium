@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: Cerebrium Cortex Inference API
+  description: 'Specification of the Cerebrium serverless GPU inference surface. Each function deployed with the Cortex framework and the Cerebrium CLI becomes an authenticated POST endpoint under /v4/{projectId}/{appName}/{functionName}. The same endpoint supports synchronous JSON responses, Server-Sent Events streaming (Accept: text/event-stream), asynchronous submission via the async=true query parameter, and OpenAI-compatible chat/embedding payloads. Endpoint hosts are regional (for example api.aws.us-east-1.cerebrium.ai); the legacy api.cortex.cerebrium.ai host is also documented. Authentication uses the JWT bearer token from the dashboard API Keys section. App deployment, scaling, logs, and status are managed through the Cerebrium CLI and dashboard rather than a documented public management REST API.'
+  termsOfService: https://www.cerebrium.ai/terms-of-service
+  contact:
+    name: Cerebrium Support
+    url: https://www.cerebrium.ai/docs
+    email: support@cerebrium.ai
+  version: v4
+servers:
+- url: https://api.aws.us-east-1.cerebrium.ai
+  description: AWS us-east-1 regional endpoint (region varies by deployment)
+- url: https://api.cortex.cerebrium.ai
+  description: Cortex endpoint host (also documented for v4 invocation)
+security:
+- bearerAuth: []
+tags:
+- name: Inference
+paths:
+  /v4/{projectId}/{appName}/{functionName}:
+    post:
+      operationId: runFunction
+      tags:
+      - Inference
+      summary: Invoke a deployed function
+      description: 'Calls a deployed Cortex function. The JSON request body maps directly to the function''s parameters. Returns a JSON object containing run_id, run_time_ms, and result. Use the function name `run` (or `predict`, or any public function defined in the app) as documented in examples. To stream output, send Accept: text/event-stream and have the function yield data; the response is a text/event-stream of `data:` lines.'
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        description: Cerebrium project identifier, for example p-xxxxxxxx.
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        description: Deployed app name from cerebrium.toml.
+        schema:
+          type: string
+      - name: functionName
+        in: path
+        required: true
+        description: Public function exposed by the app (for example run or predict). Functions prefixed with an underscore are private and not callable.
+        schema:
+          type: string
+      - name: async
+        in: query
+        required: false
+        description: When true, the request is accepted for asynchronous execution and the call returns 202 with a run_id instead of the result.
+        schema:
+          type: boolean
+      - name: Accept
+        in: header
+        required: false
+        description: Set to text/event-stream to receive a Server-Sent Events stream from a generator function.
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Free-form JSON whose keys map to the deployed function's parameters.
+      responses:
+        '200':
+          description: Synchronous execution succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+            text/event-stream:
+              schema:
+                type: string
+                description: Server-Sent Events stream of `data:` lines.
+        '202':
+          description: Async request accepted (async=true).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncAcceptedResponse'
+        '401':
+          description: Missing or invalid authentication token.
+        '403':
+          description: Authenticated token is not authorized for this resource.
+        '404':
+          description: App or function not found.
+        '500':
+          description: Application exception or platform error.
+components:
+  schemas:
+    AsyncAcceptedResponse:
+      type: object
+      properties:
+        run_id:
+          type: string
+          description: Identifier of the accepted asynchronous run.
+      required:
+      - run_id
+    RunResponse:
+      type: object
+      properties:
+        run_id:
+          type: string
+          description: Unique identifier for the request.
+        run_time_ms:
+          type: number
+          description: Execution duration in milliseconds.
+        result:
+          description: The data returned by the function.
+      required:
+      - run_id
+      - result
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT token from the dashboard API Keys section, sent as Authorization: Bearer <JWT_TOKEN>.'

@@ -1,0 +1,107 @@
+openapi: 3.0.1
+info:
+  title: Cerebrium Cortex Inference OpenAI Compatible API
+  description: 'Specification of the Cerebrium serverless GPU inference surface. Each function deployed with the Cortex framework and the Cerebrium CLI becomes an authenticated POST endpoint under /v4/{projectId}/{appName}/{functionName}. The same endpoint supports synchronous JSON responses, Server-Sent Events streaming (Accept: text/event-stream), asynchronous submission via the async=true query parameter, and OpenAI-compatible chat/embedding payloads. Endpoint hosts are regional (for example api.aws.us-east-1.cerebrium.ai); the legacy api.cortex.cerebrium.ai host is also documented. Authentication uses the JWT bearer token from the dashboard API Keys section. App deployment, scaling, logs, and status are managed through the Cerebrium CLI and dashboard rather than a documented public management REST API.'
+  termsOfService: https://www.cerebrium.ai/terms-of-service
+  contact:
+    name: Cerebrium Support
+    url: https://www.cerebrium.ai/docs
+    email: support@cerebrium.ai
+  version: v4
+servers:
+- url: https://api.aws.us-east-1.cerebrium.ai
+  description: AWS us-east-1 regional endpoint (region varies by deployment)
+- url: https://api.cortex.cerebrium.ai
+  description: Cortex endpoint host (also documented for v4 invocation)
+security:
+- bearerAuth: []
+tags:
+- name: OpenAI Compatible
+paths:
+  /v4/{projectId}/{appName}/{functionName}/chat/completions:
+    post:
+      operationId: openaiChatCompletions
+      tags:
+      - OpenAI Compatible
+      summary: OpenAI-compatible chat completions
+      description: OpenAI-compatible chat completions path served by a function that accepts the OpenAI request parameters and yields a JSON-serializable response. Use the standard OpenAI client with the function base URL and the Cerebrium JWT as the api_key.
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: OpenAI-compatible chat completion request body.
+      responses:
+        '200':
+          description: Chat completion response (JSON or streamed).
+        '401':
+          description: Missing or invalid authentication token.
+        '404':
+          description: App or function not found.
+        '500':
+          description: Application exception or platform error.
+  /v4/{projectId}/{appName}/{functionName}/embedding:
+    post:
+      operationId: openaiEmbedding
+      tags:
+      - OpenAI Compatible
+      summary: OpenAI-compatible embeddings
+      description: OpenAI-compatible embeddings path served by a function implementing the embeddings interface. Invoked with the standard OpenAI client using the function base URL and the Cerebrium JWT.
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: OpenAI-compatible embeddings request body.
+      responses:
+        '200':
+          description: Embedding response.
+        '401':
+          description: Missing or invalid authentication token.
+        '404':
+          description: App or function not found.
+        '500':
+          description: Application exception or platform error.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT token from the dashboard API Keys section, sent as Authorization: Bearer <JWT_TOKEN>.'
