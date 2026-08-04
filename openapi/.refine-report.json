@@ -1,0 +1,16 @@
+{
+  "provider": "cerebrium",
+  "sources": [
+    "cerebrium-inference-api-openapi.yml",
+    "cerebrium-openai-compatible-api-openapi.yml"
+  ],
+  "outputs": [
+    "cerebrium-inference-api-openapi.yml",
+    "cerebrium-openai-compatible-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
