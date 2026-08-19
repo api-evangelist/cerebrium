@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cerebrium Cortex Inference API",
+    "version": "v4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke a deployed function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/:projectId/:appName/:functionName",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Cerebrium project identifier, for example p-xxxxxxxx."
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path",
+                "description": "Deployed app name from cerebrium.toml."
+              },
+              {
+                "name": "functionName",
+                "value": "",
+                "type": "path",
+                "description": "Public function exposed by the app (for example run or predict). Functions prefixed with an underscore are private and not callable."
+              },
+              {
+                "name": "async",
+                "value": "",
+                "type": "query",
+                "description": "When true, the request is accepted for asynchronous execution and the call returns 202 with a run_id instead of the result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calls a deployed Cortex function. The JSON request body maps directly to the function's parameters. Returns a JSON object containing run_id, run_time_ms, and result. Use the function name `run` (or `predict`, or any public function defined in the app) as documented in examples. To stream output, send Accept: text/event-stream and have the function yield data; the response is a text/event-stream of `data:` lines."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

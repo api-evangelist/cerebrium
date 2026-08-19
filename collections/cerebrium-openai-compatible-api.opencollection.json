@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cerebrium Cortex Inference OpenAI Compatible API",
+    "version": "v4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OpenAI Compatible",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "OpenAI-compatible chat completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/:projectId/:appName/:functionName/chat/completions",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "functionName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "OpenAI-compatible chat completions path served by a function that accepts the OpenAI request parameters and yields a JSON-serializable response. Use the standard OpenAI client with the function base URL and the Cerebrium JWT as the api_key."
+        },
+        {
+          "info": {
+            "name": "OpenAI-compatible embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.aws.us-east-1.cerebrium.ai/v4/:projectId/:appName/:functionName/embedding",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "appName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "functionName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "OpenAI-compatible embeddings path served by a function implementing the embeddings interface. Invoked with the standard OpenAI client using the function base URL and the Cerebrium JWT."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
