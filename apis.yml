@@ -22,6 +22,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cerebrium.png
 tags:
+- Artificial Intelligence
+- GPU
+- Serverless
+- Inference
+- ML Infrastructure
+tags_raw:
 - AI
 - GPU
 - Serverless
@@ -76,6 +82,8 @@ apis:
   humanURL: https://www.cerebrium.ai/docs/cerebrium/endpoints/inference-api
   baseURL: https://api.aws.us-east-1.cerebrium.ai/v4
   tags:
+  - OpenAI-Compatible
+  tags_raw:
   - OpenAI Compatible
   properties:
   - type: OpenAPI
