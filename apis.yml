@@ -7,6 +7,18 @@ description: Cerebrium is a serverless GPU infrastructure platform for real-time
   CLI, then deploy each function as an authenticated REST endpoint on autoscaling
   GPU/CPU compute billed per second, with streaming, WebSocket, async, and
   OpenAI-compatible invocation patterns.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
