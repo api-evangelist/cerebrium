@@ -1,0 +1,33 @@
+# Front Door AI Index — cerebrium — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: cerebrium
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.cerebrium.ai
+  final_host: cerebrium.ai
+  ownership: own
+  owner: cerebrium
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 46
+  host_score: 46
+  density: 38.92
+  words: 1182
+  tiers:
+    agentic: 8
+    core: 31
+    model: 7
+  ambiguous: 14
+  top_terms:
+    AI: 18
+    agent: 14
+    LLMs: 8
+    inference: 5
+    large language model: 5
+    Llama: 4
+    embedding: 3
+    GPT: 2
+    OpenAI: 1

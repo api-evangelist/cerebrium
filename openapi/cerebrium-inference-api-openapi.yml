@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Cerebrium Cortex Inference API
-  description: 'Specification of the Cerebrium serverless GPU inference surface. Each function deployed with the Cortex framework and the Cerebrium CLI becomes an authenticated POST endpoint under /v4/{projectId}/{appName}/{functionName}. The same endpoint supports synchronous JSON responses, Server-Sent Events streaming (Accept: text/event-stream), asynchronous submission via the async=true query parameter, and OpenAI-compatible chat/embedding payloads. Endpoint hosts are regional (for example api.aws.us-east-1.cerebrium.ai); the legacy api.cortex.cerebrium.ai host is also documented. Authentication uses the JWT bearer token from the dashboard API Keys section. App deployment, scaling, logs, and status are managed through the Cerebrium CLI and dashboard rather than a documented public management REST API.'
+  description: Specification of the Cerebrium serverless GPU inference surface.
   termsOfService: https://www.cerebrium.ai/terms-of-service
   contact:
     name: Cerebrium Support
@@ -91,14 +91,6 @@ paths:
           description: Application exception or platform error.
 components:
   schemas:
-    AsyncAcceptedResponse:
-      type: object
-      properties:
-        run_id:
-          type: string
-          description: Identifier of the accepted asynchronous run.
-      required:
-      - run_id
     RunResponse:
       type: object
       properties:
@@ -113,6 +105,14 @@ components:
       required:
       - run_id
       - result
+    AsyncAcceptedResponse:
+      type: object
+      properties:
+        run_id:
+          type: string
+          description: Identifier of the accepted asynchronous run.
+      required:
+      - run_id
   securitySchemes:
     bearerAuth:
       type: http

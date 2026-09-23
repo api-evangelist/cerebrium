@@ -1,8 +1,7 @@
 {
   "provider": "cerebrium",
   "sources": [
-    "cerebrium-inference-api-openapi.yml",
-    "cerebrium-openai-compatible-api-openapi.yml"
+    "_original/cerebrium-openapi.yml"
   ],
   "outputs": [
     "cerebrium-inference-api-openapi.yml",
@@ -11,6 +10,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "cerebrium-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "cerebrium-openapi.yml: declared missing tag: Inference",
+    "cerebrium-openapi.yml: declared missing tag: OpenAI Compatible",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "cerebrium-inference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cerebrium-openai-compatible-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
