@@ -47,7 +47,7 @@ tags_raw:
 - Inference
 - ML Infrastructure
 created: '2026-06-20'
-modified: '2026-06-20'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: cerebrium:cerebrium-logs-status-api
@@ -114,6 +114,8 @@ apis:
   - type: Documentation
     url: https://www.cerebrium.ai/docs/cerebrium/getting-started/introduction
 common:
+- url: https://cerebrium.ai/blog
+  type: Blog
 - type: AgenticAccess
   url: agentic-access/cerebrium-agentic-access.yml
 - type: DomainSecurity
