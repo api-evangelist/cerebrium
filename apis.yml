@@ -114,6 +114,8 @@ apis:
   - type: Documentation
     url: https://www.cerebrium.ai/docs/cerebrium/getting-started/introduction
 common:
+- type: Pricing
+  url: https://cerebrium.ai/pricing
 - url: https://cerebrium.ai/blog
   type: Blog
 - type: AgenticAccess
