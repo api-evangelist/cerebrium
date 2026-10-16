@@ -35,7 +35,7 @@ edges:
     value: OpenAI-compatible
     note: 'cerebrium declares OpenAI compatibility: ''title: Cerebrium Cortex Inference OpenAI Compatible API'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
 - partner_name: MCP Registry
@@ -53,7 +53,7 @@ edges:
     registered_name: ai.cerebrium/docs
     register_id: ai.cerebrium/docs
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   mcp_registry:
     servers:
     - ai.cerebrium/docs
