@@ -20,24 +20,6 @@ edges:
   seller_name: Cerebrium
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: OpenAI
-  partner: openai
-  partner_match: domain
-  type: contract
-  channel: provider-built
-  relationship: compatible
-  direction: provider-built
-  evidence: https://github.com/api-evangelist/cerebrium/blob/main/openapi/cerebrium-openai-compatible-api-openapi.yml#L3
-  contract_reference:
-    repo: cerebrium
-    spec_file: cerebrium-openai-compatible-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'cerebrium declares OpenAI compatibility: ''title: Cerebrium Cortex Inference OpenAI Compatible API'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -53,7 +35,7 @@ edges:
     registered_name: ai.cerebrium/docs
     register_id: ai.cerebrium/docs
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   mcp_registry:
     servers:
     - ai.cerebrium/docs
@@ -69,3 +51,21 @@ edges:
   - namespace-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/cerebrium/blob/main/openapi/cerebrium-openai-compatible-api-openapi.yml#L3
+  contract_reference:
+    repo: cerebrium
+    spec_file: cerebrium-openai-compatible-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'cerebrium declares OpenAI compatibility: ''title: Cerebrium Cortex Inference OpenAI Compatible API'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
